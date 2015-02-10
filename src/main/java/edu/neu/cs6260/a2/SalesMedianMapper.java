@@ -24,8 +24,17 @@ public class SalesMedianMapper
         MALFORMED
     }
 
+    /**
+     * Map of remedian calculations per category
+     */
     HashMap<String, Remedian> remedians;
 
+    /**
+     * Called when this mapper is initialized. used to init variables.
+     * @param context
+     * @throws IOException
+     * @throws InterruptedException
+     */
     @Override
     protected void setup(Context context) throws IOException, InterruptedException {
         super.setup(context);
@@ -52,6 +61,12 @@ public class SalesMedianMapper
         remedians.get(item.getCategory()).add(item.getPrice());
     }
 
+    /**
+     * Parse a single row of input and return a parsed object
+     * @param value single row of input
+     * @param context
+     * @return object populated with information we need.
+     */
     private SaleItem readRow(Text value, Context context) {
         // rows are in the format:
         // col1 col2 col3 product_cat product_price
@@ -68,9 +83,16 @@ public class SalesMedianMapper
         return null;
     }
 
+    /**
+     * Called when this mapper is about to finish. Emits all the estimated medians
+     * @param context
+     * @throws IOException
+     * @throws InterruptedException
+     */
     @Override
     protected void cleanup(Context context) throws IOException, InterruptedException {
         for (Map.Entry<String, Remedian> entry : remedians.entrySet()) {
+            // write a record per category
             context.write(new Text(entry.getKey()),
                           new DoubleWritable(entry.getValue().getRemedian()));
         }
