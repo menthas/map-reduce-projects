@@ -1,0 +1,82 @@
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.Hashtable;
+
+import org.apache.hadoop.io.FloatWritable;
+import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Mapper.Context;
+
+/** MedianMapper is mapper class of Assignment1 Version2 program. 
+* 	@author Sahil Mehta
+*/
+public class Mapper extends
+		Mapper<LongWritable, Text, Text, FloatWritable> {
+	
+	ArrayList<Float> priceList = new ArrayList<Float>();
+	Hashtable<String, ArrayList<Float>> productPrice = new Hashtable<String, ArrayList<Float>>();
+	static float samplingRate;
+	
+	/** calculateMedian calculates median of input arraylist values. 
+	* @param priceList	An array list of prices of product category whose median is to be calculated.
+	* @return median of input values of array list 
+	*/
+	private static float calculateMedian(ArrayList<Float> priceList){
+		int size = priceList.size();
+		int mid = size/2;
+		return (size%2 == 0) ? (priceList.get(mid-1) + priceList.get(mid))/2 : priceList.get(mid);
+    }
+
+	/** map function of Assignment1 Version2 program.
+	* @param key is byte offset of each record read from input file.
+	* @param value is the content of each line as Text.
+	* @param output is mapper output which contains category and price pair.	 
+	*/
+	@Override
+	public void map(LongWritable key, Text value, Context output)
+			throws IOException, InterruptedException {
+		try {
+			String record = value.toString();
+			String recordSplitArray[] = record.split("\t");
+			String productCategory = recordSplitArray[3];
+			float price = Float.parseFloat(recordSplitArray[4]);
+			
+			if (productPrice.containsKey(productCategory)){
+				priceList = productPrice.get(productCategory);
+				priceList.add(price);
+			}else{
+				ArrayList<Float> priceListUpdated = new ArrayList<Float>();
+				priceListUpdated.add(price);
+				productPrice.put(productCategory , priceListUpdated);
+			}			
+
+			//output.write(new Text(productCategory), new FloatWritable(price));
+		}catch(NumberFormatException e){
+			System.out.println("Map failed because: " + e);
+		}catch(ArrayIndexOutOfBoundsException e){
+			System.out.println("Map failed because: " + e);
+		}
+	}
+	
+	@Override
+	protected void cleanup(Context context) throws IOException,
+		InterruptedException {
+		
+		//System.out.println("All maps done.");
+		
+		Enumeration<String> keys;
+		keys = productPrice.keys();
+		float median;
+		String key;
+
+		while (keys.hasMoreElements()) {
+			key = (String) keys.nextElement();
+			priceList = productPrice.get(key);
+			Collections.sort(priceList);
+			median = calculateMedian(priceList);
+			context.write(new Text(key), new FloatWritable(median));
+		}
+	}	
+}
