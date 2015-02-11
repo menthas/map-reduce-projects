@@ -56,7 +56,8 @@ public class SalesMedianMapper
         if (item == null)
             return;
         if (!remedians.containsKey(item.getCategory())) {
-            remedians.put(item.getCategory(), new Remedian(101));
+            remedians.put(item.getCategory(), new Remedian(
+                    context.getConfiguration().getInt("bin_size", 101)));
         }
         remedians.get(item.getCategory()).add(item.getPrice());
     }
