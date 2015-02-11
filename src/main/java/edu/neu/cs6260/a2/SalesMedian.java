@@ -17,7 +17,7 @@ import org.apache.hadoop.util.ToolRunner;
  *   2. Median, sorting values in the reducer (pass -D sorting=in_reduce)
  *   3. Median with extra CPU load in mapper (pass -D mapper.delay=[load_amount])
  *
- * @author behrooz.af
+ * @author behrooz, sahil
  */
 public class SalesMedian extends Configured implements Tool {
 

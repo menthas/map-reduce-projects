@@ -13,7 +13,7 @@ import java.util.Map;
  * Mapper class to extract the product and price from the input
  * Should be used with a reducer that sorts the keys.
  *
- * @author behrooz.af
+ * @author behrooz, sahil
  */
 public class SalesMedianMapper
         extends Mapper<LongWritable, Text, Text, DoubleWritable> {

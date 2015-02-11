@@ -11,7 +11,7 @@ import java.util.Collections;
 /**
  * Reducer class that also sorts the values in memory.
  *
- * @author behrooz.af
+ * @author behrooz, sahil
  */
 public class SalesMedianReducer
         extends
