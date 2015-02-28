@@ -41,13 +41,29 @@ public class FlightDriver extends Configured implements Tool {
         FileInputFormat.setInputPaths(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
 
-        job.setMapperClass(FlightMapper.class);
-        job.setMapOutputKeyClass(Text.class);
-        job.setMapOutputValueClass(IntWritable.class);
+        String algo = "random_tree";
 
-        job.setReducerClass(FlightReducer.class);
-        job.setOutputKeyClass(Text.class);
-        job.setOutputValueClass(FloatWritable.class);
+        if (algo.equals("random_tree")) { // RandomTree map/reduce
+            job.setMapperClass(RDTMapper.class);
+            job.setMapOutputKeyClass(Text.class);
+            job.setMapOutputValueClass(Text.class);
+        } else if (algo.equals("probability")) { // probability map/reduce
+            job.setMapperClass(FlightMapper.class);
+            job.setMapOutputKeyClass(Text.class);
+            job.setMapOutputValueClass(IntWritable.class);
+
+            job.setReducerClass(FlightReducer.class);
+            job.setOutputKeyClass(Text.class);
+            job.setOutputValueClass(FloatWritable.class);
+        } else { // Baseline map/reduce
+            job.setMapperClass(BaseLineMapper.class);
+            job.setMapOutputKeyClass(Text.class);
+            job.setMapOutputValueClass(IntWritable.class);
+
+            job.setReducerClass(BaseLineReducer.class);
+            job.setOutputKeyClass(Text.class);
+            job.setOutputValueClass(IntWritable.class);
+        }
 
         return job.waitForCompletion(true) ? 0 : 1;
     }

@@ -8,9 +8,10 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-/** MedianMapper is mapper class of Assignment1 Version4 program. 
-* 	@author Sahil Mehta
-*/
+/**
+ * MedianMapper is mapper class of Assignment1 Version4 program.
+ * @author Sahil Mehta
+ */
 public class FlightMapper extends
 		Mapper<LongWritable, Text, Text, IntWritable> {
 
@@ -26,7 +27,7 @@ public class FlightMapper extends
 	public void map(LongWritable key, Text value, Context output)
 			throws IOException, InterruptedException {
 
-        if (data.setParams(value.toString())) {
+        if (data.setParams(value.toString(), false)) {
             output.write(new Text(data.concatenateKeys()), new IntWritable(data.arrivalDelay));
         }
 	}
