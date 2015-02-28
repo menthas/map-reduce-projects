@@ -15,7 +15,7 @@ import org.apache.hadoop.mapreduce.Mapper;
 public class FlightMapper extends
 		Mapper<LongWritable, Text, Text, IntWritable> {
 
-    TravelData data = new TravelData();
+    TravelData data = new TravelData(false);
 	
 	/**
      * Read a single line and create the corresponding values.

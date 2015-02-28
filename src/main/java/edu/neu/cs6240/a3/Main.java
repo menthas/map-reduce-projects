@@ -10,6 +10,7 @@ import jsat.linear.DenseVector;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.Random;
 
 public class Main {
 
@@ -28,6 +29,7 @@ public class Main {
         }
 
         // TODO: check command and run the appropriate section
+        predictProbability(args);
 
     }
 
@@ -109,19 +111,19 @@ public class Main {
                 "(TP: " + true_positive + " | TN: " + true_negative + ")");
     }
 
-    protected static void predictProbability(String[] args) throws Exception {
+    protected static void predictProbability(String[] args) throws IOException {
         // reading from model and creating hash.
-        BufferedReader br = new BufferedReader(new FileReader(args[0]));
-
-        String sCurrentLine;
-        String recordSplitArray[];
-        Hashtable<String, Float> keyDelay = new Hashtable<>();
-        while ((sCurrentLine = br.readLine()) != null) {
-            recordSplitArray = sCurrentLine.split("\t");
-            keyDelay.put(recordSplitArray[0],
-                    Float.parseFloat(recordSplitArray[1]));
-        }
-        br.close();
+//        BufferedReader br = new BufferedReader(new FileReader(args[0]));
+//
+//        String sCurrentLine;
+//        String recordSplitArray[];
+//        Hashtable<String, Float> keyDelay = new Hashtable<>();
+//        while ((sCurrentLine = br.readLine()) != null) {
+//            recordSplitArray = sCurrentLine.split("\t");
+//            keyDelay.put(recordSplitArray[0],
+//                    Float.parseFloat(recordSplitArray[1]));
+//        }
+//        br.close();
 
         // Predicting delays using hash
         BufferedReader brPredict = new BufferedReader(new FileReader(args[1]));
@@ -133,22 +135,22 @@ public class Main {
         int count = 0;
         int correctPrediction = 0;
         int pred;
-        String predictKey = predictData.concatenateKeys();
+//        String predictKey = predictData.concatenateKeys();
         while ((sCurrentLinePredict = brPredict.readLine()) != null) {
             checkData.setParams(brCheck.readLine(), true);
             predictData.setParams(sCurrentLinePredict, true);
             count++;
-            pred = 0;
+            pred = (new Random()).nextFloat() >= 0.2382 ? 0 : 1;
             if(pred == checkData.arrivalDelay)
                 correctPrediction++;
 
-            if (keyDelay.containsKey(predictKey)) {
-                count++;
-                if ( (keyDelay.get(predictKey) > 90.0 && checkData.arrivalDelay == 1)
-                        || (keyDelay.get(predictKey) <= 90.0 && checkData.arrivalDelay == 0)) {
-                    correctPrediction++;
-                }
-            }
+//            if (keyDelay.containsKey(predictKey)) {
+//                count++;
+//                if ( (keyDelay.get(predictKey) > 90.0 && checkData.arrivalDelay == 1)
+//                        || (keyDelay.get(predictKey) <= 90.0 && checkData.arrivalDelay == 0)) {
+//                    correctPrediction++;
+//                }
+//            }
         }
         brPredict.close();
         brCheck.close();

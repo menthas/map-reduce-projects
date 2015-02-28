@@ -41,7 +41,7 @@ public class FlightDriver extends Configured implements Tool {
         FileInputFormat.setInputPaths(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
 
-        String algo = "random_tree";
+        String algo = "baseline";
 
         if (algo.equals("random_tree")) { // RandomTree map/reduce
             job.setMapperClass(RDTMapper.class);
