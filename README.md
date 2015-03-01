@@ -2,6 +2,13 @@
 This project was written using Java version 1.7 and was tested using that version.
 Any lower version will fail to compile the source code.
 
+## Other Requirements
+    * Java 7
+    * gradle script (used to build and handle dependencies)
+      the `gradle` command should be in your PATH. OR change `a3.sh` to reflect
+      the correct path.
+    * a working copy of hadoop. either single mode or pseudo distributed mode.
+
 This project includes an easy to use bash script. Here are some examples:
 
 ### Learn
