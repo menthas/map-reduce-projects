@@ -1,23 +1,20 @@
-# MapReduce - Assignment 1
+# MapReduce - Assignment 3
 This project was written using Java version 1.7 and was tested using that version.
 Any lower version will fail to compile the source code.
-To create the JAR file while handling the dependencies you need to have gradle
-installed on your system (see: http://gradle.org/installation)
 
-**Note:** lines starting with `$` are commands.
+This project includes an easy to use bash script. Here are some examples:
 
-### Compiling
-Unzip, `cd` to `map-reduce-projects` and run maven as follows:
-$ cd map-reduce-projects
-$ gradle dist build
-afterwards locate and `cd` into the directory of the JAR file.
-(probably called `build/libs/map-reduce-projects-1.0.jar`).
+### Learn
+$ ./a3.sh -learn [path/to/dataset]
 
-**Note:** And already compiled version is included in `build/libs/map-reduce-projects-1.0.jar`
+### predict
+$ ./a3.sh -predict [path/to/model.m] [path/to/predict/dataset]
 
-### Running the experiments
-To run the experiments in a single mode hadoop distribution do:
-$ hadoop jar map-reduce-projects-1.0.jar edu.neu.cs6260.a2.SalesMedian [INPUT_DATASET_FILE] [OUTPUT_DIRECTORY]
+### check
+$ ./a3.sh -check [path/to/predicted/file] [path/to/check/dataset]
 
-**Note:** You can also fix the paths in file `run_experiments.py` and run that
-file directly to run the tests that produced the numbers in the report.
+## changing the model
+$ ./a3.sh -learn -algo random_forest ...
+
+## changing the hadoop executable path
+$ ./a3.sh -learn -hadoop_command [path/to/hadoop] ...
