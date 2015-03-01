@@ -15,6 +15,11 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Random;
 
+/**
+ * Main class that handles are different commands and components.
+ *
+ * @author Behrooz Afghahi, Sahil Mehta
+ */
 public class Main {
 
     protected static CategoricalData[] cats = new CategoricalData[] {

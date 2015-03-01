@@ -8,7 +8,7 @@ import org.apache.hadoop.mapreduce.Reducer;
 import java.io.IOException;
 
 /** MedianReducer is reducer class of Assignment1 Version4 program. 
-* @author Sahil Mehta
+* @author Behrooz Afghahi, Sahil Mehta
 */
 public class BaseLineReducer extends
 		Reducer<Text, IntWritable, Text, IntWritable> {

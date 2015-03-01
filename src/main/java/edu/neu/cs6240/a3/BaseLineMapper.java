@@ -9,7 +9,7 @@ import java.io.IOException;
 
 /**
  * MedianMapper is mapper class of Assignment1 Version4 program.
- * @author Sahil Mehta
+ * @author Behrooz Afghahi, Sahil Mehta
  */
 public class BaseLineMapper extends
 		Mapper<LongWritable, Text, Text, IntWritable> {

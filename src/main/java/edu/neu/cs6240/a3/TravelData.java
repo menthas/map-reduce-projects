@@ -3,6 +3,8 @@ package edu.neu.cs6240.a3;
 /**
  * This key is a composite key. The "actual" key is the category. The secondary sort
  * will be performed against the price.
+ *
+ * @author Behrooz Afghahi, Sahil Mehta
  */
 public class TravelData {
 
