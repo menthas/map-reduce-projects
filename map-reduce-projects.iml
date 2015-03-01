@@ -79,5 +79,7 @@
     <orderEntry type="library" exported="" name="Gradle: tomcat:jasper-compiler:5.5.23" level="project" />
     <orderEntry type="library" exported="" name="Gradle: javax.servlet:jsp-api:2.0" level="project" />
     <orderEntry type="library" exported="" name="Gradle: tomcat:jasper-runtime:5.5.23" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: :jsat-r950:" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: com.google.code.gson:gson:2.3.1" level="project" />
   </component>
 </module>
