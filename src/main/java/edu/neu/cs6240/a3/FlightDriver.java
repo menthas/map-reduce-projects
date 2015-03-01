@@ -41,9 +41,9 @@ public class FlightDriver extends Configured implements Tool {
         FileInputFormat.setInputPaths(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
 
-        String algo = "baseline";
+        String algo = getConf().get("algo", "probability");
 
-        if (algo.equals("random_tree")) { // RandomTree map/reduce
+        if (algo.equals("random_forest")) { // RandomTree map/reduce
             job.setMapperClass(RDTMapper.class);
             job.setMapOutputKeyClass(Text.class);
             job.setMapOutputValueClass(Text.class);
