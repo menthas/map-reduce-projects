@@ -199,7 +199,7 @@ public class Main {
             String predictKey = predictData.concatenateKeys();
             int pred = 0;
             if (keyDelay.containsKey(predictKey)) {
-                pred = keyDelay.get(predictKey) >= 0.5 ? 1 : 0;
+                pred = keyDelay.get(predictKey) >= 43.0 ? 1 : 0;
             }
 
             String[] parts = sCurrentLinePredict.split(",");
